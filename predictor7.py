@@ -196,9 +196,9 @@ if st.button("Predict"):
 
     # ==================== 6. LIME 解释 ====================
     st.subheader("🔍 LIME 特征贡献解释")
-
+    X_test1 = X_test[feature_names]
     lime_explainer = LimeTabularExplainer(
-        training_data=X_test.values,
+        training_data=X_test1.values,
         feature_names=feature_names,
         class_names=["低XX风险", "高XX风险"],
         mode="classification"
@@ -207,10 +207,11 @@ if st.button("Predict"):
     lime_exp = lime_explainer.explain_instance(
         data_row=features.flatten(),
         predict_fn=model.predict_proba,
-        num_features=16
+        num_features=13
     )
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
