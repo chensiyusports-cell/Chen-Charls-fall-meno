@@ -1,8 +1,10 @@
-pandas: 2.3.3
-numpy: 2.2.6
-matplotlib: 3.10.7
-sklearn: 1.7.2
-xgboost: 3.1.1
-shap: 0.47.0
-statsmodels: 0.14.5
-joblib: 1.5.2
+pandas==2.3.3
+numpy==2.2.6
+matplotlib==3.10.7
+scikit-learn==1.7.2
+xgboost==3.1.1
+shap==0.47.0
+statsmodels==0.14.5
+joblib==1.5.2
+streamlit==1.53.1
+lime==0.2.0.1
