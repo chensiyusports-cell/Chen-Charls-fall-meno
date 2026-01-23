@@ -207,9 +207,10 @@ if st.button("Predict"):
     lime_exp = lime_explainer.explain_instance(
         data_row=features.flatten(),
         predict_fn=model.predict_proba,
-        num_features=13
+        num_features=16
     )
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
