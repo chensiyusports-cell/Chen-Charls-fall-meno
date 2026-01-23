@@ -69,7 +69,7 @@ Height = st.number_input(
 
 CESD10 = st.number_input(
     "CESD10",
-    min_value=0.0,
+    min_value=0,
     step=1
 )
 
@@ -212,3 +212,4 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
