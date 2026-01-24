@@ -268,9 +268,10 @@ if st.button("Predict"):
     </div>
     """
 
-    st.components.v1.html(wrapped_html, height=1100, scrolling=True)
+    st.components.v1.html(wrapped_html, height=8000, scrolling=True)
 
     
+
 
 
 
