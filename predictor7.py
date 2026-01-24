@@ -258,18 +258,9 @@ fixed_width = 1400
 
 wrapped_html = f"""
 <style>
-/* 🔥 强制移除 LIME 内部滚动 */
 div[style*="overflow-y"],
-div[style*="overflow: auto"],
-div[style*="overflow:auto"],
-div[style*="overflow-y:auto"] {{
-    overflow: visible !important;
-    height: auto !important;
-    max-height: none !important;
-}}
-
-table {{
-    max-height: none !important;
+div[style*="overflow: auto"] {{
+    max-height: 800px !important;
 }}
 </style>
 
@@ -280,12 +271,14 @@ table {{
 
 st.components.v1.html(
     wrapped_html,
-    height=1400,
-    scrolling=False
+    height=900,
+    scrolling=True
 )
 
 
+
     
+
 
 
 
