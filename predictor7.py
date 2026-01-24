@@ -109,9 +109,52 @@ unDomain_2KG = st.number_input(
     step=0.1
 )
 
+Fallen_down_history = st.selectbox(
+    "Have you fallen down before?",
+    options=[0, 1],
+    format_func=lambda x: "yes" if x == 1 else "no"
+)
+
+felt_depressed = st.selectbox(
+    "How often did you feel depressed during the past week?",
+    options=[0, 1, 2, 3],
+    format_func=lambda x: {
+        0: "Rarely or none of the time (<1 day)",
+        1: "Some or a little of the time (1–2 days)",
+        2: "Occasionally or a moderate amount of the time (3–4 days)",
+        3: "Most or all of the time (5–7 days)"
+    }[x]
+)
+
+self_rated_health1 = st.selectbox(
+    "How would you rate your health?",
+    options=[1, 2, 3, 4, 5],
+    format_func=lambda x: {
+        1: "Very good",
+        2: "Good",
+        3: "Fair",
+        4: "Poor",
+        5: "Very poor"
+    }[x]
+)
+
+daily_activity_ability = st.selectbox(
+     "**Independent in daily activities**  \n"
+    "Can you complete **ALL** of the following tasks independently?\n\n"
+    "- Bathing or showering\n\n"
+    "- Eating\n\n"
+    "- Getting into or out of bed\n\n"
+    "- Using the toilet\n\n"
+    "- Controlling urination and defecation\n\n"
+    "- Doing household chores\n\n"
+    "- Preparing hot meals\n\n"
+    "- Shopping for groceries",
+    options=[0, 1],
+    format_func=lambda x: "No" if x == 0 else "Yes"
+)
 
 # ===== CES-D 10: 自动计算（0–30）=====
-st.markdown("### CES-D 10 (Past Week)")
+st.markdown("### CES-D 10")
 
 CESD_OPTIONS = [0, 1, 2, 3]
 CESD_LABELS = {
@@ -163,50 +206,6 @@ st.number_input(
     step=1,
     value=int(CESD10),
     disabled=True
-)
-
-Fallen_down_history = st.selectbox(
-    "Have you fallen down before?",
-    options=[0, 1],
-    format_func=lambda x: "yes" if x == 1 else "no"
-)
-
-felt_depressed = st.selectbox(
-    "How often did you feel depressed during the past week?",
-    options=[0, 1, 2, 3],
-    format_func=lambda x: {
-        0: "Rarely or none of the time (<1 day)",
-        1: "Some or a little of the time (1–2 days)",
-        2: "Occasionally or a moderate amount of the time (3–4 days)",
-        3: "Most or all of the time (5–7 days)"
-    }[x]
-)
-
-self_rated_health1 = st.selectbox(
-    "How would you rate your health?",
-    options=[1, 2, 3, 4, 5],
-    format_func=lambda x: {
-        1: "Very good",
-        2: "Good",
-        3: "Fair",
-        4: "Poor",
-        5: "Very poor"
-    }[x]
-)
-
-daily_activity_ability = st.selectbox(
-     "**Independent in daily activities**  \n"
-    "Can you complete **ALL** of the following tasks independently?\n\n"
-    "- Bathing or showering\n"
-    "- Eating\n"
-    "- Getting into or out of bed\n"
-    "- Using the toilet\n"
-    "- Controlling urination and defecation\n"
-    "- Doing household chores\n"
-    "- Preparing hot meals\n"
-    "- Shopping for groceries",
-    options=[0, 1],
-    format_func=lambda x: "No" if x == 0 else "Yes"
 )
 # ==================== 4. 数据处理与预测 ====================
 feature_values = [
@@ -270,6 +269,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
