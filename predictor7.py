@@ -233,13 +233,12 @@ if st.button("Predict"):
     )
 True)
 
-# ==================== 6. LIME 解释（无滚动：Feature/Value 表直接展开） ====================
+# ==================== 6. LIME 解释（无滚动版本） ====================
 import streamlit as st
 from lime.lime_tabular import LimeTabularExplainer
 
 st.subheader("🔍LIME-based Feature Contribution Analysis")
 
-# 确保顺序一致
 X_test1 = X_test[feature_names]
 
 lime_explainer = LimeTabularExplainer(
@@ -260,7 +259,7 @@ fixed_width = 1400
 
 wrapped_html = f"""
 <style>
-/* ✅ 关键：把 LIME 内部的滚动容器强制改成“自动高度 + 不滚动” */
+/* 🔥 强制移除 LIME 内部滚动 */
 div[style*="overflow-y"],
 div[style*="overflow: auto"],
 div[style*="overflow:auto"],
@@ -270,28 +269,25 @@ div[style*="overflow-y:auto"] {{
     max-height: none !important;
 }}
 
-/* ✅ 避免表格自身被限制高度 */
 table {{
     max-height: none !important;
-}}
-
-/* （可选）让右侧 Feature/Value 表更稳一点 */
-body {{
-    overflow: visible !important;
 }}
 </style>
 
 <div style="width: {fixed_width}px;">
-  {lime_html}
+    {lime_html}
 </div>
 """
 
-# ✅ scrolling=False：外层也不滚动
-# ✅ height 给大一点，确保能完全显示（不够就再加大）
-st.components.v1.html(wrapped_html, height=1400, scrolling=False)
+st.components.v1.html(
+    wrapped_html,
+    height=1400,
+    scrolling=False
+)
 
 
     
+
 
 
 
