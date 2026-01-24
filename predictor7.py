@@ -44,79 +44,79 @@ st.markdown("Please fill the following blank to predict")
 
 # ==================== 3. 特征输入组件（按编码规则设计） ====================
 Age = st.number_input(
-    "Age (years)",
+    "**Age (years)**",
     min_value=0.0,
     step=0.1
 )
 
 Height = st.number_input(
-    "Height (cm)",
+    "**Height (cm)**",
     min_value=0.0,
     step=0.1
 )
 
 body_mass = st.number_input(
-    "Body Weight (kg)",
+    "**Body Weight (kg)**",
     min_value=0.0,
     step=0.1
 )
 
 Waist_Circumference = st.number_input(
-    "Waist Circumference (cm)",
+    "**Waist Circumference (cm)**",
     min_value=0.0,
     step=0.1
 )
 
 Pulse = st.number_input(
-    "Resting Heart Rate (bpm)",
+    "**Resting Heart Rate (bpm)**",
     min_value=0.0,
     step=0.1
 )
 
 SBP = st.number_input(
-    "SBP (mmHg)",
+    "**SBP (mmHg)**",
     min_value=0.0,
     step=0.1
 )
 
 DBP = st.number_input(
-    "DBP (mmHg)",
+    "**DBP (mmHg)**",
     min_value=0.0,
     step=0.1
 )
 
 PP = st.number_input(
-    "Pulse Pressure (mmHg)",
+    "**Pulse Pressure (mmHg)**",
     min_value=0.0,
     step=0.1
 )
 
 time_5_sts = st.number_input(
-    "5-times Sit-to-Stand Test Time (s)",
+    "**5-times Sit-to-Stand Test Time (s)**",
     min_value=0.0,
     step=0.1
 )
 
 pef_mean = st.number_input(
-    "Peak Expiratory Flow (L/min)",
+    "**Peak Expiratory Flow (L/min)**",
     min_value=0.0,
     step=0.1
 )
 
 unDomain_2KG = st.number_input(
-    "Maximum Non-dominant Arm Biceps Curl Repetitions with 2 kg Load",
+    "**Maximum Non-dominant Arm Biceps Curl Repetitions with 2 kg Load**",
     min_value=0.0,
     step=0.1
 )
 
 Fallen_down_history = st.selectbox(
-    "Have you fallen down before?",
+    "**Have you fallen down before?**",
     options=[0, 1],
     format_func=lambda x: "yes" if x == 1 else "no"
 )
 
 felt_depressed = st.selectbox(
-    "How often did you feel depressed during the past week?",
+    "**How often did you feel depressed during the past week?**",
     options=[0, 1, 2, 3],
     format_func=lambda x: {
         0: "Rarely or none of the time (<1 day)",
@@ -127,7 +127,7 @@ felt_depressed = st.selectbox(
 )
 
 self_rated_health1 = st.selectbox(
-    "How would you rate your health?",
+    "**How would you rate your health?**",
     options=[1, 2, 3, 4, 5],
     format_func=lambda x: {
         1: "Very good",
@@ -139,7 +139,7 @@ self_rated_health1 = st.selectbox(
 )
 
 daily_activity_ability = st.selectbox(
-    "Independent in daily activities\n\n"
+    "**Independent in daily activities**\n\n"
     "  Can you complete **ALL** of the following tasks independently?\n\n"
     "  • Bathing or showering\n\n"
     "  • Eating\n\n"
@@ -269,6 +269,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
