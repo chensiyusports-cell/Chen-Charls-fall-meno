@@ -140,15 +140,15 @@ self_rated_health1 = st.selectbox(
 
 daily_activity_ability = st.selectbox(
     "Independent in daily activities\n\n"
-    "    Can you complete **ALL** of the following tasks independently?\n\n"
-    "     • Bathing or showering\n\n"
-    "     • Eating\n\n"
-    "     • Getting into or out of bed\n\n"
-    "     • Using the toilet\n\n"
-    "     • Controlling urination and defecation\n\n"
-    "     • Doing household chores\n\n"
-    "     • Preparing hot meals\n\n"
-    "     • Shopping for groceries",
+    "  Can you complete **ALL** of the following tasks independently?\n\n"
+    "  • Bathing or showering\n\n"
+    "  • Eating\n\n"
+    "  • Getting into or out of bed\n\n"
+    "  • Using the toilet\n\n"
+    "  • Controlling urination and defecation\n\n"
+    "  • Doing household chores\n\n"
+    "  • Preparing hot meals\n\n"
+    "  • Shopping for groceries",
     options=[0, 1],
     format_func=lambda x: "No" if x == 0 else "Yes"
 )
@@ -269,6 +269,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
