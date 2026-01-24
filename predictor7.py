@@ -229,27 +229,8 @@ if st.button("Predict"):
         f"Low risk {predicted_proba[0]:.2%} ｜ High risk {predicted_proba[1]:.2%}"
     )
     st.write(
-    "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 20%–70%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as indicating relatively elevated risk."
+    "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 20%–70%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as relatively elevated risk."
     )
-
-    # 个性化建议
-    st.subheader("💡 健康建议")
-    probability = predicted_proba[predicted_class] * 100
-
-    if predicted_class == 1:
-        advice = (
-            f"模型预测您的 XX 风险为 **高风险**（概率 {probability:.1f}%）。"
-            "建议尽快前往医疗机构进行全面评估，重点关注营养摄入、"
-            "睡眠质量与心理健康等方面，并根据自身情况增加适度体育锻炼，"
-            "改善生活环境。"
-        )
-    else:
-        advice = (
-            f"模型预测您的 XX 风险为 **低风险**（概率 {probability:.1f}%）。"
-            "请继续保持良好的生活方式，合理饮食、规律作息，并定期进行健康检查。"
-        )
-
-    st.success(advice)
 
     # ==================== 6. LIME 解释 ====================
     st.subheader("🔍 LIME 特征贡献解释")
@@ -269,6 +250,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
