@@ -228,8 +228,8 @@ if st.button("Predict"):
         f"**Risk Probability：** "
         f"Low risk {predicted_proba[0]:.2%} ｜ High risk {predicted_proba[1]:.2%}"
     )
-    st.caption(
-    "Note: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 20%–70%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as indicating relatively elevated risk."
+    st.write(
+    "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 20%–70%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as indicating relatively elevated risk."
     )
 
     # 个性化建议
@@ -269,6 +269,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
