@@ -252,16 +252,26 @@ if st.button("Predict"):
     fixed_width = 1400  # 你可以改成 1200/1600 试试
 
     wrapped_html = f"""
-    <div style="
-      width: {fixed_width}px;
-      overflow-x: auto;
-      overflow-y: hidden;
-    ">
+    <style>
+    div[style*="overflow-y"] {{
+        height: 900px !important;
+        max-height: 900px !important;
+    }}
+    div[style*="overflow: auto"] {{
+        height: 900px !important;
+        max-height: 900px !important;
+    }}
+    </style>
+
+    <div style="width: {fixed_width}px;">
       {lime_html}
     </div>
     """
 
-    st.components.v1.html(wrapped_html, height=20000, scrolling=True)
+    st.components.v1.html(wrapped_html, height=1100, scrolling=True)
+
+    
+
 
 
 
