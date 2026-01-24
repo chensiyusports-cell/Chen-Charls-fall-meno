@@ -1,3 +1,4 @@
+st.set_page_config(layout="wide")
 # ==================== 0. 导入库 ====================
 import streamlit as st
 import joblib
@@ -250,6 +251,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=300, scrolling=True)
+
 
 
 
