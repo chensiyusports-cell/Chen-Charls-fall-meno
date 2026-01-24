@@ -231,7 +231,6 @@ if st.button("Predict"):
     st.write(
     "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 25%–75%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as relatively elevated risk."
     )
-True)
 
 # ==================== 6. LIME 解释（无滚动版本） ====================
 import streamlit as st
@@ -287,6 +286,7 @@ st.components.v1.html(
 
 
     
+
 
 
 
