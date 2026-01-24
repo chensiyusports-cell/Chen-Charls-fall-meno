@@ -231,46 +231,68 @@ if st.button("Predict"):
     st.write(
     "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 25%–75%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as relatively elevated risk."
     )
+True)
 
-    # ==================== 6. LIME 解释 ====================
-    st.subheader("🔍LIME-based Feature Contribution Analysis")
-    X_test1 = X_test[feature_names]
-    lime_explainer = LimeTabularExplainer(
-        training_data=X_test1.values,
-        feature_names=feature_names,
-        class_names=["Low Fall Risk", "High Fall Risk"],
-        mode="classification"
-    )
+# ==================== 6. LIME 解释（无滚动：Feature/Value 表直接展开） ====================
+import streamlit as st
+from lime.lime_tabular import LimeTabularExplainer
 
-    lime_exp = lime_explainer.explain_instance(
-        data_row=features.flatten(),
-        predict_fn=model.predict_proba,
-        num_features=16
-    )
+st.subheader("🔍LIME-based Feature Contribution Analysis")
 
-    lime_html = lime_exp.as_html(show_table=True)
-    fixed_width = 1400  # 你可以改成 1200/1600 试试
+# 确保顺序一致
+X_test1 = X_test[feature_names]
 
-    wrapped_html = f"""
-    <style>
-    div[style*="overflow-y"] {{
-        height: 900px !important;
-        max-height: 900px !important;
-    }}
-    div[style*="overflow: auto"] {{
-        height: 900px !important;
-        max-height: 900px !important;
-    }}
-    </style>
+lime_explainer = LimeTabularExplainer(
+    training_data=X_test1.values,
+    feature_names=feature_names,
+    class_names=["Low Fall Risk", "High Fall Risk"],
+    mode="classification"
+)
 
-    <div style="width: {fixed_width}px;">
-      {lime_html}
-    </div>
-    """
+lime_exp = lime_explainer.explain_instance(
+    data_row=features.flatten(),
+    predict_fn=model.predict_proba,
+    num_features=16
+)
 
-    st.components.v1.html(wrapped_html, height=1000, scrolling=True)
+lime_html = lime_exp.as_html(show_table=True)
+fixed_width = 1400
+
+wrapped_html = f"""
+<style>
+/* ✅ 关键：把 LIME 内部的滚动容器强制改成“自动高度 + 不滚动” */
+div[style*="overflow-y"],
+div[style*="overflow: auto"],
+div[style*="overflow:auto"],
+div[style*="overflow-y:auto"] {{
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+}}
+
+/* ✅ 避免表格自身被限制高度 */
+table {{
+    max-height: none !important;
+}}
+
+/* （可选）让右侧 Feature/Value 表更稳一点 */
+body {{
+    overflow: visible !important;
+}}
+</style>
+
+<div style="width: {fixed_width}px;">
+  {lime_html}
+</div>
+"""
+
+# ✅ scrolling=False：外层也不滚动
+# ✅ height 给大一点，确保能完全显示（不够就再加大）
+st.components.v1.html(wrapped_html, height=1400, scrolling=False)
+
 
     
+
 
 
 
