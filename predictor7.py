@@ -223,7 +223,7 @@ if st.button("Predict"):
     predicted_proba = model.predict_proba(features)[0]    # 概率
 
     # ==================== 5. 结果展示 ====================
-    st.subheader("📊 Prediction Results")
+    st.subheader("📊Prediction Results")
     st.write(
         f"**Risk Probability：** "
         f"Low risk {predicted_proba[0]:.2%} ｜ High risk {predicted_proba[1]:.2%}"
@@ -233,7 +233,7 @@ if st.button("Predict"):
     )
 
     # ==================== 6. LIME 解释 ====================
-    st.subheader("🔍 LIME-based Feature Contribution Analysis")
+    st.subheader("🔍LIME-based Feature Contribution Analysis")
     X_test1 = X_test[feature_names]
     lime_explainer = LimeTabularExplainer(
         training_data=X_test1.values,
@@ -245,11 +245,12 @@ if st.button("Predict"):
     lime_exp = lime_explainer.explain_instance(
         data_row=features.flatten(),
         predict_fn=model.predict_proba,
-        num_features=13
+        num_features=16
     )
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=300, scrolling=True)
+
 
 
 
