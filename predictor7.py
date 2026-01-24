@@ -144,7 +144,7 @@ felt_happy = cesd_item("How often did you feel happy during the past week?", "fe
 hopeful_about_future = cesd_item("How often did you feel hopeful about the future during the past week?", "hopeful_about_future")
 
 CESD10 = (
-    felt_depressed
+    felt_depressed1
     + everything_was_an_effort
     + felt_fearful
     + poor_sleep
@@ -270,6 +270,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
