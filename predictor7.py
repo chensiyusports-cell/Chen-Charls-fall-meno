@@ -45,8 +45,8 @@ st.markdown("Please complete the following information to obtain an individualiz
 # ==================== 3. 特征输入组件（按编码规则设计） ====================
 Age = st.number_input(
     "**Age (years)**",
-    min_value=0.0,
-    step=0.1
+    min_value=0,
+    step=1
 )
 
 Height = st.number_input(
@@ -105,8 +105,8 @@ pef_mean = st.number_input(
 
 unDomain_2KG = st.number_input(
     "**Maximum Non-dominant Arm Biceps Curl Repetitions with 2 kg Load**",
-    min_value=0.0,
-    step=0.1
+    min_value=0,
+    step=1
 )
 
 Fallen_down_history = st.selectbox(
@@ -278,6 +278,7 @@ st.components.v1.html(
 
 
     
+
 
 
 
