@@ -44,31 +44,31 @@ st.markdown("Please fill the following blank to predict")
 
 # ==================== 3. 特征输入组件（按编码规则设计） ====================
 time_5_sts = st.number_input(
-    "time_5_sts",
+    "5-times Sit-to-Stand Test Time (s)",
     min_value=0.0,
     step=0.1
 )
 
 body_mass = st.number_input(
-    "body_mass",
+    "Body Weight (kg)",
     min_value=0.0,
     step=0.1
 )
 
 SBP = st.number_input(
-    "SBP",
+    "SBP (mmHg)",
     min_value=0.0,
     step=0.1
 )
 
 Height = st.number_input(
-    "Height",
+    "Height (cm)",
     min_value=0.0,
     step=0.1
 )
 
 CESD10 = st.number_input(
-    "CESD10",
+    "CES-D 10 Total Score (0–30)",
     min_value=0,
     step=1
 )
@@ -80,43 +80,43 @@ Fallen_down_history = st.selectbox(
 )
 
 unDomain_2KG = st.number_input(
-    "unDomain_2KG",
+    "Non-dominant Arm Biceps Curl Repetitions with 2 kg Load",
     min_value=0.0,
     step=0.1
 )
 
 Waist_Circumference = st.number_input(
-    "Waist_Circumference",
+    "Waist Circumference (cm)",
     min_value=0.0,
     step=0.1
 )
 
 DBP = st.number_input(
-    "DBP",
+    "DBP (mmHg)",
     min_value=0.0,
     step=0.1
 )
 
 pef_mean = st.number_input(
-    "pef_mean",
+    "Peak Expiratory Flow (L/min)",
     min_value=0.0,
     step=0.1
 )
 
 Pulse = st.number_input(
-    "Pulse",
+    "Resting Heart Rate (bpm)",
     min_value=0.0,
     step=0.1
 )
 
 Age = st.number_input(
-    "Age",
+    "Age (years)",
     min_value=0.0,
     step=0.1
 )
 
 felt_depressed = st.selectbox(
-    "Felt depressed in the past week",
+    "How often did you feel depressed during the past week?",
     options=[0, 1, 2, 3],
     format_func=lambda x: {
         0: "Rarely or none of the time (<1 day)",
@@ -139,9 +139,9 @@ self_rated_health1 = st.selectbox(
 )
 
 daily_activity_ability = st.selectbox(
-    "daily_activity_ability",
+    "Independent in daily activities. Can you finish the following tasks independently? Select 'Yes' when all of them can be finished, and 'No' if any of them can not be finished.",
     options=[0, 1],
-    format_func=lambda x: "yes" if x == 0 else "no"
+    format_func=lambda x: "No" if x == 0 else "Yes"
 )
 
 PP = st.number_input(
@@ -212,6 +212,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
