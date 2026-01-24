@@ -229,7 +229,7 @@ if st.button("Predict"):
         f"Low risk {predicted_proba[0]:.2%} ｜ High risk {predicted_proba[1]:.2%}"
     )
     st.write(
-    "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 20%–70%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as relatively elevated risk."
+    "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 25%–75%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as relatively elevated risk."
     )
 
     # ==================== 6. LIME 解释 ====================
@@ -249,7 +249,21 @@ if st.button("Predict"):
     )
 
     lime_html = lime_exp.as_html(show_table=True)
-    st.components.v1.html(lime_html, height=300, scrolling=True)
+    fixed_width = 1400  # 你可以改成 1200/1600 试试
+
+    wrapped_html = f"""
+    <div style="
+      width: {fixed_width}px;
+      overflow-x: auto;
+      overflow-y: hidden;
+    ">
+      {lime_html}
+    </div>
+    """
+
+    st.components.v1.html(wrapped_html, height=650, scrolling=True)
+
+
 
 
 
