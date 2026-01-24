@@ -1,4 +1,3 @@
-st.set_page_config(layout="wide")
 # ==================== 0. 导入库 ====================
 import streamlit as st
 import joblib
@@ -10,7 +9,7 @@ from lime.lime_tabular import LimeTabularExplainer
 import warnings
 
 warnings.filterwarnings("ignore")
-
+st.set_page_config(layout="wide")
 # ==================== 1. 基础配置 ====================
 # 加载训练好的随机森林模型（确保 RF.pkl 与脚本同目录）
 model = joblib.load("xgb_model.pkl")
@@ -251,6 +250,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=300, scrolling=True)
+
 
 
 
