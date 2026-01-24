@@ -168,7 +168,7 @@ st.number_input(
 Fallen_down_history = st.selectbox(
     "Have you fallen down before?",
     options=[0, 1],
-    format_func=lambda x: "yes" if x == 0 else "no"
+    format_func=lambda x: "yes" if x == 1 else "no"
 )
 
 felt_depressed = st.selectbox(
@@ -270,6 +270,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
