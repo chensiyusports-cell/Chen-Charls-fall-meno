@@ -39,8 +39,8 @@ feature_names = [
 
 # ==================== 2. Streamlit 页面配置 ====================
 st.set_page_config(page_title="Fall Risk Prediction", layout="wide")
-st.title("Fall risk prediction of Chinese post-menopausal women")
-st.markdown("Please fill the following blank to predict")
+st.title("Fall Risk Prediction Model for Chinese Postmenopausal Women")
+st.markdown("Please complete the following information to obtain an individualized fall risk estimate.")
 
 # ==================== 3. 特征输入组件（按编码规则设计） ====================
 Age = st.number_input(
@@ -224,12 +224,12 @@ if st.button("Predict"):
 
     # ==================== 5. 结果展示 ====================
     st.subheader("📊 Prediction Results")
-    risk_label = "高风险" if predicted_class == 1 else "低风险"
-
-    st.write(f"**风险等级：{predicted_class}（{risk_label}）**")
     st.write(
-        f"**风险概率：** "
-        f"低风险 {predicted_proba[0]:.2%} ｜ 高风险 {predicted_proba[1]:.2%}"
+        f"**Risk Probability：** "
+        f"Low risk {predicted_proba[0]:.2%} ｜ High risk {predicted_proba[1]:.2%}"
+    )
+    st.caption(
+    "Note: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 20%–70%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as indicating relatively elevated risk."
     )
 
     # 个性化建议
@@ -269,6 +269,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
