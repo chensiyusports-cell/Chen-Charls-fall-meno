@@ -43,20 +43,8 @@ st.title("Fall risk prediction of Chinese post-menopausal women")
 st.markdown("Please fill the following blank to predict")
 
 # ==================== 3. 特征输入组件（按编码规则设计） ====================
-time_5_sts = st.number_input(
-    "5-times Sit-to-Stand Test Time (s)",
-    min_value=0.0,
-    step=0.1
-)
-
-body_mass = st.number_input(
-    "Body Weight (kg)",
-    min_value=0.0,
-    step=0.1
-)
-
-SBP = st.number_input(
-    "SBP (mmHg)",
+Age = st.number_input(
+    "Age (years)",
     min_value=0.0,
     step=0.1
 )
@@ -67,20 +55,8 @@ Height = st.number_input(
     step=0.1
 )
 
-CESD10 = st.number_input(
-    "CES-D 10 Total Score (0–30)",
-    min_value=0,
-    step=1
-)
-
-Fallen_down_history = st.selectbox(
-    "Have you fallen down before?",
-    options=[0, 1],
-    format_func=lambda x: "yes" if x == 0 else "no"
-)
-
-unDomain_2KG = st.number_input(
-    "Non-dominant Arm Biceps Curl Repetitions with 2 kg Load",
+body_mass = st.number_input(
+    "Body Weight (kg)",
     min_value=0.0,
     step=0.1
 )
@@ -91,8 +67,32 @@ Waist_Circumference = st.number_input(
     step=0.1
 )
 
+Pulse = st.number_input(
+    "Resting Heart Rate (bpm)",
+    min_value=0.0,
+    step=0.1
+)
+
+SBP = st.number_input(
+    "SBP (mmHg)",
+    min_value=0.0,
+    step=0.1
+)
+
 DBP = st.number_input(
     "DBP (mmHg)",
+    min_value=0.0,
+    step=0.1
+)
+
+PP = st.number_input(
+    "Pulse Pressure (mmHg)",
+    min_value=0.0,
+    step=0.1
+)
+
+time_5_sts = st.number_input(
+    "5-times Sit-to-Stand Test Time (s)",
     min_value=0.0,
     step=0.1
 )
@@ -103,16 +103,72 @@ pef_mean = st.number_input(
     step=0.1
 )
 
-Pulse = st.number_input(
-    "Resting Heart Rate (bpm)",
+unDomain_2KG = st.number_input(
+    "Maximum Non-dominant Arm Biceps Curl Repetitions with 2 kg Load",
     min_value=0.0,
     step=0.1
 )
 
-Age = st.number_input(
-    "Age (years)",
-    min_value=0.0,
-    step=0.1
+
+# ===== CES-D 10: 自动计算（0–30）=====
+st.markdown("### CES-D 10 (Past Week)")
+
+CESD_OPTIONS = [0, 1, 2, 3]
+CESD_LABELS = {
+    0: "Rarely or none of the time (<1 day)",
+    1: "Some or a little of the time (1–2 days)",
+    2: "Occasionally or a moderate amount of the time (3–4 days)",
+    3: "Most or all of the time (5–7 days)"
+}
+
+def cesd_item(question: str, key: str) -> int:
+    return st.selectbox(
+        question,
+        options=CESD_OPTIONS,
+        format_func=lambda x: CESD_LABELS[x],
+        key=key
+    )
+
+# 8 个负向题（直接加分）
+felt_depressed1 = cesd_item("How often did you feel depressed during the past week?", "felt_depressed1")
+everything_was_an_effort = cesd_item("How often did you feel that everything was an effort during the past week?", "everything_was_an_effort")
+felt_fearful = cesd_item("How often did you feel fearful during the past week?", "felt_fearful")
+poor_sleep = cesd_item("How often did you have restless sleep during the past week?", "poor_sleep")
+felt_lonely = cesd_item("How often did you feel lonely during the past week?", "felt_lonely")
+felt_could_not_go_on_with_my_life = cesd_item("How often did you feel you could not go on with your life during the past week?", "felt_could_not_go_on_with_my_life")
+bothered_by_trivial_things = cesd_item("How often were you bothered by things that don't usually bother you during the past week?", "bothered_by_trivial_things")
+hard_to_concentrate = cesd_item("How often did you have trouble keeping your mind on what you were doing during the past week?", "hard_to_concentrate")
+
+# 2 个正向题（需要反向计分：3-x）
+felt_happy = cesd_item("How often did you feel happy during the past week?", "felt_happy")
+hopeful_about_future = cesd_item("How often did you feel hopeful about the future during the past week?", "hopeful_about_future")
+
+CESD10 = (
+    felt_depressed
+    + everything_was_an_effort
+    + felt_fearful
+    + poor_sleep
+    + felt_lonely
+    + felt_could_not_go_on_with_my_life
+    + bothered_by_trivial_things
+    + hard_to_concentrate
+    + (3 - felt_happy)
+    + (3 - hopeful_about_future)
+)
+
+st.number_input(
+    "CES-D 10 Total Score (0–30)",
+    min_value=0,
+    max_value=30,
+    step=1,
+    value=int(CESD10),
+    disabled=True
+)
+
+Fallen_down_history = st.selectbox(
+    "Have you fallen down before?",
+    options=[0, 1],
+    format_func=lambda x: "yes" if x == 0 else "no"
 )
 
 felt_depressed = st.selectbox(
@@ -139,15 +195,18 @@ self_rated_health1 = st.selectbox(
 )
 
 daily_activity_ability = st.selectbox(
-    "Independent in daily activities. Can you finish the following tasks independently? Select 'Yes' when all of them can be finished, and 'No' if any of them can not be finished.",
+    "Independent in daily activities. Can you complete ALL of the following tasks independently?\n"
+    "• Bathing or showering\n"
+    "• Eating\n"
+    "• Getting into or out of bed\n"
+    "• Using the toilet\n"
+    "• Controlling urination and defecation\n"
+    "• Doing household chores\n"
+    "• Preparing hot meals\n"
+    "• Shopping for groceries\n\n"
+    "Select 'Yes' if all tasks can be completed independently, and 'No' if any task cannot be completed.",
     options=[0, 1],
     format_func=lambda x: "No" if x == 0 else "Yes"
-)
-
-PP = st.number_input(
-    "PP",
-    min_value=0.0,
-    step=0.1
 )
 # ==================== 4. 数据处理与预测 ====================
 feature_values = [
@@ -156,7 +215,6 @@ feature_values = [
     DBP, pef_mean, Pulse, Age,
     felt_depressed, self_rated_health1, daily_activity_ability, PP
 ]
-
 
 features = np.array([feature_values])
 
@@ -212,6 +270,7 @@ if st.button("Predict"):
 
     lime_html = lime_exp.as_html(show_table=True)
     st.components.v1.html(lime_html, height=600, scrolling=True)
+
 
 
 
