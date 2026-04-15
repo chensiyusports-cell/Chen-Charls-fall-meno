@@ -221,7 +221,7 @@ if st.button("Predict"):
     # 模型预测
     predicted_class = model.predict(features)[0]          # 0: 低风险, 1: 高风险
     predicted_proba = model.predict_proba(features)[0]    # 概率
-    st.write("classes:", model.classes_)
+    
     # ==================== 5. 结果展示 ====================
     st.subheader("📊Prediction Results")
     st.write(
