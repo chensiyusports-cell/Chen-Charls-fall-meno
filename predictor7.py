@@ -229,7 +229,7 @@ if st.button("Predict"):
         f"Low risk {predicted_proba[0]:.2%} ｜ High risk {predicted_proba[1]:.2%}"
     )
     st.write(
-    "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 25%–75%). Therefore, values toward the upper end of this range (such as 65%) should be interpreted as relatively elevated risk."
+    "**Note**: This prediction model provides estimated fall risk, with probabilities typically falling within an intermediate range (e.g., 30%–70%). Therefore, values toward the upper end of this range (such as 60%) should be interpreted as relatively elevated risk."
     )
 
 # ==================== 6. LIME 解释（无滚动版本） ====================
